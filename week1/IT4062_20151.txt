@@ -1,0 +1,7 @@
+SubjectID|IT4062
+Subject|Lap trinh
+F|30|70
+Semester|20151
+studentCount|2
+S|20132696|Nguyen Nam|Van|10.0|10.0|A|
+S|20111111|Tran|Thi Hoa|9.0|10.0|A|

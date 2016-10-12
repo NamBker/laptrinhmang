@@ -1,0 +1,75 @@
+#include <stdio.h>          /* These are the usual header files */
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+
+
+#define PORT 5550  /* Port that will be opened */ 
+
+void String_Upper(char string[]) 
+{
+	int i = 0;
+ 
+	while (string[i] != '\0') 
+	{
+    	if (string[i] >= 'a' && string[i] <= 'z') {
+        	string[i] = string[i] - 32;
+    	}
+      	i++;
+	}
+}
+
+int main()
+{
+ 
+	int server_sock; /* file descriptors */
+	char recv_data[1024];
+	int bytes_sent, bytes_received;
+	struct sockaddr_in server; /* server's address information */
+	struct sockaddr_in client; /* client's address information */
+	int sin_size;
+
+
+	if ((server_sock=socket(AF_INET, SOCK_DGRAM, 0)) == -1 ){  /* calls socket() */
+		printf("socket() error\n");
+		exit(-1);
+	}
+
+	server.sin_family = AF_INET;         
+	server.sin_port = htons(PORT);   /* Remember htons() from "Conversions" section? =) */
+	server.sin_addr.s_addr = INADDR_ANY;  /* INADDR_ANY puts your IP address automatically */   
+	bzero(&(server.sin_zero),8); /* zero the rest of the structure */
+
+  
+	if(bind(server_sock,(struct sockaddr*)&server,sizeof(struct sockaddr))==-1){ /* calls bind() */
+		printf("bind() error\n");
+		exit(-1);
+	}     
+
+
+	while(1){
+		sin_size=sizeof(struct sockaddr_in);
+    		
+		bytes_received = recvfrom(server_sock,recv_data,1024,0, (struct sockaddr *) &client, &sin_size);
+		
+		if (bytes_received < 0){
+			printf("\nError!Can not receive data from client!");
+		}
+		else{
+			recv_data[bytes_received] = '\0';
+			String_Upper(recv_data);
+			puts(recv_data);
+		}
+		
+		sin_size=sizeof(client);
+		bytes_sent = sendto(server_sock,recv_data,bytes_received,0,(struct sockaddr *) &client, sin_size ); /* send to the client welcome message */
+		if (bytes_sent < 0){
+			printf("\nError!Can not sent data to client!");
+		}
+		
+			
+	}
+	
+	close(server_sock);
+	return 0;
+}
