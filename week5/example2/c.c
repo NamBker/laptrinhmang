@@ -1,3 +1,12 @@
+<<<<<<< HEAD
+#include <stdio.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <stdlib.h>
+#include <string.h>
+=======
 #include <stdio.h>     
 #include <stdlib.h>
 #include <unistd.h>
@@ -8,6 +17,7 @@
 #include <arpa/inet.h>
 #include <string.h>
 #include <sys/wait.h>
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 
 int main(){
 	int client_sock;
@@ -30,8 +40,13 @@ int main(){
 	bytes_received = recv(client_sock,buff,100,0);
 	if(bytes_received == -1){
 		printf("\nError!Cannot receive data from sever!\n");
+<<<<<<< HEAD
+		close(client_sock);	
+		exit(-1);
+=======
 		close(client_sock);
 		exit(EXIT_FAILURE);
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 	}
 	buff[bytes_received] = '\0';
 	puts(buff);
@@ -59,6 +74,10 @@ int main(){
 
     				memset(buff,'\0',(strlen(buff)+1));
 				  	int nread = fread(buff,100, 1,rm);
+<<<<<<< HEAD
+				  	printf("client_read:%s\n",buff);
+=======
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 				  	if(nread >= 0){
 				  		bytes_total = bytes_total+nread*100;
 				  		 bytes_sent = send(client_sock, buff, strlen(buff), 0);
@@ -79,7 +98,12 @@ int main(){
 				FILE *fp;
 				strtok(filename,".");
 				strcat(filename,"_converse.txt");
+<<<<<<< HEAD
+				 
+				fp = fopen("server_client.txt","w");
+=======
 				fp = fopen(filename,"w");
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 				if(fp != NULL){
 					do{
 						memset(buff,'\0',(strlen(buff)+1));
@@ -89,6 +113,10 @@ int main(){
 							close(client_sock);
 						}
 						else{
+<<<<<<< HEAD
+							printf("%s\n",buff);
+=======
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 							fputs(buff,fp);
 							memset(buff,'\0',(strlen(buff)+1));
 							if(bytes_received == 0){
@@ -108,10 +136,13 @@ int main(){
 			if((strcmp(filename,"Q") != 0) && (strcmp(filename,"q") != 0)){
 				printf("Not file Found\n");
 			}
+<<<<<<< HEAD
+=======
 			else{
 		  		 bytes_sent = send(client_sock, "Q", strlen("Q"), 0);
 
 			}
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 		}
 	}while((strcmp(filename,"Q") != 0) && (strcmp(filename,"q") != 0));
 

@@ -12,9 +12,12 @@
 #define PORT 5550   /* Port that will be opened */ 
 #define BACKLOG 2   /* Number of allowed connections */
 
+<<<<<<< HEAD
+=======
 
 
 
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 void String_Upper(char string[]) 
 {
   int i = 0;
@@ -31,7 +34,10 @@ void String_Upper(char string[])
 int main()
 {
  
+<<<<<<< HEAD
+=======
 
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
   int listen_sock, conn_sock; /* file descriptors */
   char recv_data[100];
   int bytes_sent, bytes_received;
@@ -39,11 +45,19 @@ int main()
   struct sockaddr_in client; /* client's address information */
 
   int sin_size;
+<<<<<<< HEAD
+
+=======
   size_t  size;
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 
   fd_set active_fd_set, read_fd_set;
   int i;
 
+<<<<<<< HEAD
+
+=======
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
   if ((listen_sock=socket(AF_INET, SOCK_STREAM, 0)) == -1 ){  /* calls socket() */
     printf("socket() error\n");
     exit(-1);
@@ -63,15 +77,25 @@ int main()
     exit(-1);
   }
 
+<<<<<<< HEAD
+    FILE *fp;
+  fp = fopen("server.txt","w");
+  fclose(fp);
+=======
   FILE *fp;
   char filename[200];
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 
   FD_ZERO(&active_fd_set);
   FD_SET(listen_sock,&active_fd_set);
 
   while(1){
     read_fd_set = active_fd_set;
+<<<<<<< HEAD
+    if(select(FD_SETSIZE,&read_fd_set,NULL,NULL,NULL) <0){
+=======
       if(select(FD_SETSIZE,&read_fd_set,NULL,NULL,NULL) <0){
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
       perror("Select");
       exit(EXIT_FAILURE);
     }
@@ -81,6 +105,20 @@ int main()
       if(FD_ISSET(i,&read_fd_set)){
         if(i == listen_sock){
           int new;
+<<<<<<< HEAD
+          sin_size =sizeof(client);
+          new = accept(listen_sock,(struct sockaddr *)&client,&sin_size);
+          if( new < 0){
+            perror("Accept");
+            exit(EXIT_FAILURE);
+
+          }
+
+          fprintf (stderr,"Server: connect from host %s, port %hd.\n",inet_ntoa (client.sin_addr),
+                         ntohs (client.sin_port));
+
+          bytes_sent = send(new,"Welcome to my server.\n",22,0); /* send to the client welcome message */
+=======
           size =sizeof(client);
           new = accept(listen_sock,(struct sockaddr *)&client,&size); /* calls accept() */
           if(new < 0){         
@@ -93,11 +131,39 @@ int main()
                                ntohs (client.sin_port));  
           bytes_sent = send(new,"Welcome to my server.\n",22,0); /* send to the client welcome message */
           
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
           if (bytes_sent < 0){
             printf("\nError!Can not sent data to client!");
             close(new);
             continue;
           }
+<<<<<<< HEAD
+
+          FD_SET(new,&active_fd_set);
+        }
+        else{         
+              fp = fopen("server.txt","r+");
+           do{
+              memset(recv_data,'\0',(strlen(recv_data)+1));
+              bytes_received = recv(i,recv_data,100,0); //blocking
+              printf("server_recv:%s\n",recv_data );
+
+              if (bytes_received < 0){
+                printf("\nError!Can not receive data from client!");
+                  close(i);
+                  FD_CLR(i,&active_fd_set);
+              }
+             
+            } while( bytes_received > 0 && bytes_received < 100);
+        }
+
+
+      }
+    }
+
+  }
+}
+=======
             memset(filename,'\0',(strlen(filename)+1));
             strcat(filename,"server_");
             int port;
@@ -171,3 +237,4 @@ int main()
     }
   }
 }
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1

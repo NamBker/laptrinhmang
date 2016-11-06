@@ -42,7 +42,10 @@ int main()
 	struct sockaddr_in client; /* client's address information */
 
 	pid_t pid;
+<<<<<<< HEAD
+=======
 
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 	int sin_size;
 
 	if ((listen_sock=socket(AF_INET, SOCK_STREAM, 0)) == -1 ){  /* calls socket() */
@@ -65,11 +68,17 @@ int main()
 		exit(-1);
 	}
 
+<<<<<<< HEAD
+	FILE *fp;
+ 	char filename[200];
+
+=======
 
 	FILE *fp;
  	char filename[200];
 
 
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 	while(1){
 		sin_size=sizeof(struct sockaddr_in);
 		if ((conn_sock = accept(listen_sock,(struct sockaddr *)&client,&sin_size))==-1){ /* calls accept() */

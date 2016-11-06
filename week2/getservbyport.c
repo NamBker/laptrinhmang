@@ -4,8 +4,12 @@
 #include <stdio.h>
 #include <string.h>
 
+<<<<<<< HEAD
+int getservbyport_r(int port, const char *proto, struct servent *se,
+=======
 int
 getservbyport_r(int port, const char *proto, struct servent *se,
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
     struct servent_data *sd)
 {
 	int error;

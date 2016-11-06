@@ -107,8 +107,11 @@ int main(){
 			}
 		}
 	}while((strcmp(filename,"Q") != 0) && (strcmp(filename,"q") != 0));
+<<<<<<< HEAD
+=======
 
 
+>>>>>>> 41436eed61b64842ecf01950f3418be2ed5aaec1
 	printf("\nTotal bytes you sent to server:%d bytes\n",bytes_total);
 	close(client_sock);
 	return 0;
